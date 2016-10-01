@@ -50,5 +50,9 @@
   "bugs": {
     "url": "https://github.com/husnulhamidiah/qoap-middleware/issues"
   },
-  "homepage": "https://github.com/husnulhamidiah/qoap-middleware#readme"
+  "homepage": "https://github.com/husnulhamidiah/qoap-middleware#readme",
+  "preferGlobal": true,
+  "bin": {
+    "qoap": "bin/qoap.js"
+  },
 }
