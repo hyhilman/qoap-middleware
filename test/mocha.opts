@@ -1,0 +1,6 @@
+--require chai
+--ui bdd
+--growl
+--colors
+--globals s
+--reporter list
