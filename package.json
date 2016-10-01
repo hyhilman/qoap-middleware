@@ -1,6 +1,6 @@
 {
   "name": "qoap",
-  "version": "1.0.0",
+  "version": "1.1.0-0",
   "scripts": {
     "start": "NODE_ENV=development bin/qoap.js",
     "test": "cake spec && ./node_modules/.bin/cake features",
@@ -36,7 +36,7 @@
   "description": "Qoap middleware. An IoT middleware as bridge for CoAP, MQTT dan HTTP.",
   "main": "server.js",
   "bin": {
-    "qoap": "qoap.js"
+    "qoap": "bin/qoap.js"
   },
   "directories": {
     "test": "test"
@@ -51,8 +51,5 @@
     "url": "https://github.com/husnulhamidiah/qoap-middleware/issues"
   },
   "homepage": "https://github.com/husnulhamidiah/qoap-middleware#readme",
-  "preferGlobal": true,
-  "bin": {
-    "qoap": "bin/qoap.js"
-  }
+  "preferGlobal": true
 }
