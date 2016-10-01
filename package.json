@@ -54,5 +54,5 @@
   "preferGlobal": true,
   "bin": {
     "qoap": "bin/qoap.js"
-  },
+  }
 }
