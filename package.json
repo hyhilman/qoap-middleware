@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "start": "NODE_ENV=development bin/qoap.js",
-    "test": "./node_modules/.bin/cake spec && ./node_modules/.bin/cake features",
-    "mocha": "./node_modules/.bin/cake spec",
-    "cucumber": "./node_modules/.bin/cake features"
+    "test": "cake spec && ./node_modules/.bin/cake features",
+    "mocha": "cake spec",
+    "cucumber": "cake features"
   },
   "dependencies": {
     "ascoltatori": "^2.0.1",
@@ -32,5 +32,23 @@
     "request": "^2.74.0",
     "socket.io-client": "^1.4.8",
     "underscore": "^1.8.3"
-  }
+  },
+  "description": "Qoap middleware. An IoT middleware as bridge for CoAP, MQTT dan HTTP.",
+  "main": "server.js",
+  "bin": {
+    "qoap": "qoap.js"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/husnulhamidiah/qoap-middleware.git"
+  },
+  "author": "Husnul Anwari <contact@husnulanwari.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/husnulhamidiah/qoap-middleware/issues"
+  },
+  "homepage": "https://github.com/husnulhamidiah/qoap-middleware#readme"
 }
