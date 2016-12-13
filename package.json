@@ -9,10 +9,12 @@
   },
   "dependencies": {
     "ascoltatori": "^2.0.1",
+    "async": "^2.1.4",
     "coap": "^0.14.0",
     "coffee-script": "^1.10.0",
     "connect-redis": "^3.1.0",
     "consign": "^0.1.2",
+    "express": "^4.14.0",
     "mqtt": "^1.7.4",
     "redis": "^2.5.3",
     "socket.io": "^1.4.8",

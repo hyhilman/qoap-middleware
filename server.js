@@ -1,5 +1,5 @@
 (function () {
-  let app, start, mqtt, coap, redis, ascoltatori, logger, argv, consign
+  let app, start, mqtt, coap, redis, ascoltatori, logger, argv, consign, server
   let setupAscoltatore, setup, configure, coapServer
 
   consign = require('consign')
@@ -7,8 +7,11 @@
   ascoltatori = require('ascoltatori')
   mqtt = require('mqtt')
   coap = require('coap')
-  module.exports.app = app = require('http').Server()
-  app.io = require('socket.io')(app)
+
+  module.exports.app = app = require('express')()
+  server = require('http').Server(app)
+
+  app.io = require('socket.io')(server)
   app.redis = {}
 
   module.exports.setupAscoltatore = setupAscoltatore = (opts) => {
@@ -63,22 +66,25 @@
     opts.redisHost || (opts.redisHost = argv['redis-host'])
     opts.redisDB || (opts.redisDB = argv['redis-db'])
 
+    if (argv['ipv6']) opts.ipv6 = '::'
+
     setup({
       port: opts.redisPort,
       host: opts.redisHost,
       db: opts.redisDB
     })
 
-    app.listen(opts.port, () => {
-      logger.socket('Websocket listening on port %d in %s mode', opts.port, process.env.NODE_ENV, {protocol: 'coap'})
+    server.listen(opts.port, () => {
+      logger.socket('Websocket listening on port %d in %s mode', opts.port, process.env.NODE_ENV, {protocol: 'websocket'})
+      logger.http('HTTP server listening on port %d in %s mode', opts.port, process.env.NODE_ENV)
     })
 
     coapServer = coap.createServer()
-    coapServer.on('request', app.controllers.coap_api).listen(opts.coap, () => {
+    coapServer.on('request', app.controllers.coap_api).listen(opts.coap, opts.ipv6, () => {
       logger.coap('CoAP server listening on port %d in %s mode', opts.coap, process.env.NODE_ENV)
     })
 
-    new mqtt.Server(app.controllers.mqtt_api).listen(opts.mqtt, opts.mqttHost, () => {
+    new mqtt.Server(app.controllers.mqtt_api).listen(opts.mqtt, opts.ipv6, () => {
       logger.mqtt('MQTT server listening on port %d in %s mode', opts.mqtt, process.env.NODE_ENV)
     })
 

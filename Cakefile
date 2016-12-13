@@ -23,13 +23,14 @@ runExternal = (command, callback) ->
   return
 
 launchSpec = (args, callback) ->
-  runExternal 'NODE_ENV=test ./node_modules/.bin/babel-node ./node_modules/.bin/babel-istanbul cover ./node_modules/.bin/_mocha ' + args, callback
+  runExternal 'NODE_ENV=test LOG_LEVEL=none ./node_modules/.bin/babel-node ./node_modules/.bin/babel-istanbul cover ./node_modules/.bin/_mocha ' + args, callback
 
 task 'spec', ->
   launchSpec '-- --recursive --timeout 5000 --compilers js:babel-register test', (result) ->
     process.exit result
 task 'spec:ci', ->
-  launchSpec '-- --watch --recursive test --compilers js:babel-register'
+  runExternal 'NODE_ENV=test LOG_LEVEL=none ./node_modules/.bin/babel-node ./node_modules/.bin/_mocha --recursive --timeout 5000 --compilers js:babel-register test', (result) ->
+    process.exit result
 task 'features', ->
   runExternal 'NODE_ENV=test LOG_LEVEL=none ./node_modules/.bin/cucumber.js -t ~@wip --compiler js:babel-register', (result) ->
     if result != 0

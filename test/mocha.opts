@@ -3,4 +3,4 @@
 --growl
 --colors
 --globals s
---reporter list
+--reporter spec
