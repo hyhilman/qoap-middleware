@@ -65,7 +65,7 @@
         return models.Data.findOrCreate('aaa', 'bbb', (function (_this) {
           return function (err, data) {
             if (err) console.log(err)
-            expect(data).to.eql(new models.Data('aaa', 'bbb'));
+            expect(data).to.eql(new models.Data('aaa', 'bbb'))
             return done()
           }
         })(this))
@@ -110,7 +110,7 @@
             return done()
           }
         })
-        return async.parallel([async.apply(models.Data.findOrCreate, 'hello/bob', 'aaa'), async.apply(models.Data.findOrCreate, 'hello/mark', 'aaa')]);
+        return async.parallel([async.apply(models.Data.findOrCreate, 'hello/bob', 'aaa'), async.apply(models.Data.findOrCreate, 'hello/mark', 'aaa')])
       })
 
       it('should allow subscribing in the create step', function (done) {
@@ -196,7 +196,7 @@
         return expect(subject.redisKey).to.eql('topic:aaa/42')
       })
 
-      it('should accept an object as value in the constructor', function() {
+      it('should accept an object as value in the constructor', function () {
         var obj, subject
         obj = {
           hello: 42
@@ -267,7 +267,7 @@
         subject = new models.Data('key')
         return subject.save((function (_this) {
           return function () {
-            models.Data.subscribe(subject.key, function(data) {
+            models.Data.subscribe(subject.key, function (data) {
               expect(data.value).to.equal('aaaa')
               return done()
             })
@@ -280,7 +280,7 @@
       it('should register for change before creation', function (done) {
         var subject
         subject = new models.Data('key')
-        models.Data.subscribe(subject.key, (function(_this) {
+        models.Data.subscribe(subject.key, (function (_this) {
           return function (data) {
             expect(data.value).to.equal('aaaa')
             return done()
@@ -304,7 +304,7 @@
         })(this))
       })
 
-      it('should save and find', function(done) {
+      it('should save and find', function (done) {
         var subject
         subject = new models.Data('key')
         return subject.save((function (_this) {

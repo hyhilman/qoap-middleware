@@ -74,18 +74,28 @@
       db: opts.redisDB
     })
 
+    let countDone = 0
+    let done = function () {
+      if (countDone++ === 3) {
+        return cb()
+      }
+    }
+
     server.listen(opts.port, () => {
       logger.socket('Websocket listening on port %d in %s mode', opts.port, process.env.NODE_ENV, {protocol: 'websocket'})
       logger.http('HTTP server listening on port %d in %s mode', opts.port, process.env.NODE_ENV)
+      done()
     })
 
     coapServer = coap.createServer()
     coapServer.on('request', app.controllers.coap_api).listen(opts.coap, opts.ipv6, () => {
       logger.coap('CoAP server listening on port %d in %s mode', opts.coap, process.env.NODE_ENV)
+      done()
     })
 
     new mqtt.Server(app.controllers.mqtt_api).listen(opts.mqtt, opts.ipv6, () => {
       logger.mqtt('MQTT server listening on port %d in %s mode', opts.mqtt, process.env.NODE_ENV)
+      done()
     })
 
     return app
