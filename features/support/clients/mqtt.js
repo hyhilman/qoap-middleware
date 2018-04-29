@@ -19,8 +19,8 @@
       return this.client.subscribe(topic, {qos: 0})
     }
 
-    MqttClient.prototype.publish = function (topic, message, qos, callback) {
-      this.client.publish(topic, message, {'qos': qos})
+    MqttClient.prototype.publish = function (topic, message, callback) {
+      this.client.publish(topic, message)
       return callback()
     }
 

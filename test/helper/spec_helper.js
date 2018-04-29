@@ -8,7 +8,8 @@
     db: 0
   }
 
-  module.exports.qoapStart = function (callback) {
+  module.exports.qoapStart = function () {
+    let env = require('../../server.js')
     let opts = {
       port: 6887,
       coap: 6887,
@@ -17,14 +18,7 @@
       redisPort: 6379,
       redisDB: 0
     }
-    env.start(opts, (function () {
-      if (this.app != null) {
-        return callback()
-      }
-      this.app = env.app
-      console.log(this.app)
-      callback()
-    })())
+    return env.start(opts)
   }
 
   module.exports.globalSetup = function () {

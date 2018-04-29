@@ -5,8 +5,8 @@
 
   const KEYS_SET_NAME = 'topics'
   
-  //const crypto = require('crypto');
-  //const secret = 'abcdef';
+  const crypto = require('crypto');
+  const secret = 'abcdef';
   
   module.exports = function (app) {
     var Data, buildKey
@@ -17,8 +17,11 @@
         this.key = key_
         this.value = value_
         this.value || (this.value = null)
-	//this.hash = crypto.createHmac('sha256', secret).update('I love cupcakes').digest('hex');
-	//console.log(this)	
+	
+	this.hash = crypto.createHmac('sha512', secret)
+                   .update("test")
+                   .digest('hex');
+	console.log(this)
       }
 
       Object.defineProperty(Data.prototype, 'key', {
@@ -130,11 +133,13 @@
       var data
       data = new Data(topic)
       data.jsonValue = value
-	//data.hash = crypto.createHmac('sha512', secret).update(value).digest('hex');
-
-	//console.log(data)
       return data
     }
+"0"
+1499638327.687911 [0 127.0.0.1:58972] "select" "0"
+1499638327.688587 [0 127.0.0.1:58972] "select" "0"
+1499638327.699608 [0 127.0.0.1:58974] "select" "0"
+1499638327.700117 [0 127.0.0.1:58974] "select" "0"
 
     Data.subscribe = function (topic, callback) {
       callback._subscriber = (actualTopic, value) => callback(new Data(actualTopic, value))

@@ -4,11 +4,10 @@
   globalEventEmitter.setMaxListeners(0)
 
   const KEYS_SET_NAME = 'topics'
-  
-  //const crypto = require('crypto');
-  //const secret = 'abcdef';
-  
-  module.exports = function (app) {
+  const crypto = require('crypto');
+  const secret = 'middleware';
+ 
+ module.exports = function (app) {
     var Data, buildKey
     buildKey = (key) => 'topic:' + key
 
@@ -17,8 +16,11 @@
         this.key = key_
         this.value = value_
         this.value || (this.value = null)
-	//this.hash = crypto.createHmac('sha256', secret).update('I love cupcakes').digest('hex');
-	//console.log(this)	
+	
+	this.value = crypto.createHmac('sha512', secret)
+                   .update(value_)
+                   .digest('hex');
+	console.log(this) yang di encript (deny)
       }
 
       Object.defineProperty(Data.prototype, 'key', {
@@ -130,9 +132,6 @@
       var data
       data = new Data(topic)
       data.jsonValue = value
-	//data.hash = crypto.createHmac('sha512', secret).update(value).digest('hex');
-
-	//console.log(data)
       return data
     }
 
